@@ -1,0 +1,19 @@
+package core.concretes;
+
+import core.abstracts.VerificationService;
+import entities.concretes.User;
+import googleAccount.GoogleVerificationService;
+
+public class GoogleVerificationAdapter implements VerificationService {
+
+	@Override
+	public boolean isValid(User user) {
+		   
+		GoogleVerificationService googleverificationservice= new GoogleVerificationService();
+		
+		return googleverificationservice.isValidGoogle();
+		
+		
+	}
+
+}

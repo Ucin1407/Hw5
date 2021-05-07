@@ -1,0 +1,40 @@
+import business.abstracts.UserService;
+import business.concretes.UserManager;
+import core.concretes.ValidatorManager;
+import core.concretes.VerificationManager;
+import core.concretes.GoogleVerificationAdapter;
+import dataAccess.concretes.MemoryUserDao;
+import entities.concretes.User;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		User user1 = new User("Uğurcan", "Çırak", "u.kodlamaio@gmail.com", "u1234");
+
+		User user2 = new User("Hazar", "Kelçe", "mhk3735@gmail.com", "mhk3735");
+		
+		User user3= new User("Doğukan", "Büyükkoca", "dukanbykc@gmail.com", "dukan9876");
+		
+        UserService userservice = new UserManager(new VerificationManager(),new MemoryUserDao(),new ValidatorManager());
+
+		
+		System.out.println("Başarılı Kayıt");
+		userservice.register(user1);
+		userservice.login(user1.getEmail(), user1.getPassword());
+		
+		System.out.println("Başarısız Kayıt");
+		
+		userservice.register(user2);
+		userservice.login(user2.getEmail(), user2.getPassword());
+		
+		UserService userservice2= new UserManager(new GoogleVerificationAdapter(), new MemoryUserDao(), new ValidatorManager());
+		
+		
+		System.out.println("Kayıt Başarılı");
+		userservice2.register(user3);
+		userservice2.login(user3.getEmail(), user3.getPassword());
+
+	}
+
+}

@@ -1,0 +1,43 @@
+package dataAccess.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dataAccess.abstracts.UserDao;
+import entities.concretes.User;
+
+public class MemoryUserDao implements UserDao {
+    
+	List<User> users = new ArrayList<>();
+
+	@Override
+	public void add(User user) {
+		
+		users.add(user);
+		System.out.println("Kullanıcı eklendi : " + user.getFirstName().toUpperCase() + " " + " " + user.getLastName().toUpperCase());
+		 
+	}
+
+	@Override
+	public boolean checkEmail(User user) {
+		for(User u : users) {
+			if(u.getEmail() == user.getEmail()) {
+				return false;
+			}
+		}
+		
+		
+		return true;
+	}
+
+	@Override
+	public boolean login(String email, String password) {
+		for(User user : users) {
+			if(user.getEmail() == email && user.getPassword() == password) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+}
